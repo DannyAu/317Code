@@ -12,7 +12,7 @@ public class Sys {
             System.out.println("wait");
             db.deleteTables();
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("[Error]: " + e);
         }
     }
     private static void create(){
@@ -20,7 +20,7 @@ public class Sys {
             System.out.println("wait");
             db.createTables();
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("[Error]: " + e);
         }
     }
     
@@ -30,7 +30,7 @@ public class Sys {
             System.out.println("Type in the Source Data Folder Path: ");
             db.loadTables(input.nextLine());
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("[Error]: " + e);
         }
     }
     
@@ -42,7 +42,7 @@ public class Sys {
             int ans = Integer.parseInt(input.nextLine());
             pro.date = LocalDate.of(ans/10000, ans/100%100, ans%100);
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("[Error]: " + e);
         }
     }
 

@@ -32,19 +32,18 @@ public class Database {
         counter += checkORDERS();
         counter += checkORDERING();
         counter += checkAUTHOR();
-        if(counter == 5)
+        if(counter >= 0)
             return true;
         return false;
     }
 
     public static int checkBOOK(){
         Statement stmt = null;
-        int res = 0;
+        int res=-1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM BOOK;");
-            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -56,12 +55,11 @@ public class Database {
 
     public static int checkCUSTOMER(){
         Statement stmt = null;
-        int res = 0;
+        int res = -1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM CUSTOMER;");
-            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -73,12 +71,11 @@ public class Database {
 
     public static int checkORDERS(){
         Statement stmt = null;
-        int res = 0;
+        int res = -1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM ORDERS;");
-            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -90,12 +87,11 @@ public class Database {
 
     public static int checkORDERING(){
         Statement stmt = null;
-        int res = 0;
+        int res = -1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM ORDERING;");
-            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -107,12 +103,11 @@ public class Database {
 
     public static int checkAUTHOR(){
         Statement stmt = null;
-        int res = 0;
+        int res = -1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM AUTHOR;");
-            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -240,6 +235,11 @@ public class Database {
     } 
 
     public static void loadTables(String path){
+        if (checkBOOK()==0){
+           System.out.println("[Error]: Please create table first!");
+           return;
+        }
+
         if (!(new File(path)).isDirectory()){
            System.out.println("[Error]: Incorrect path!");
            return;

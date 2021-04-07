@@ -48,7 +48,7 @@ public class Project {
                     case 5:
                         return;
                     default:
-                        System.out.println("error");
+                        System.out.println("[Error]: Invalid input.");
                         break;
                 }
             }  catch (Exception e) {
