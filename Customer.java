@@ -150,9 +150,8 @@ private static void OrderAlter(){
                 db.updateOrderingQuan(oid, ISBN, quan-no2);
                 System.out.println("update done");
                 db.updateOrderCharge(oid, db.getCharge(oid));
-                System.out.println("updated charge" + Odate);
+                System.out.println("updated charge");
                 db.updateOrdersDate(oid, Odate);
-                db.printOrder(oid);
                 db.printOrdering(oid);
             }
             else 
