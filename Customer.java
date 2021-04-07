@@ -67,7 +67,6 @@ public class Customer {
 
           switch (st) {
               case "F":
-                  db.updateOrderCharge(oid,db.getCharge(oid));
                   db.printOrder(oid);
                   nextOrder = false;
                   break;
@@ -85,20 +84,22 @@ public class Customer {
                       System.out.println("Quantity must be larger or equal to 1");
                       break;
                   }
-                  if(listArray == 0){          
+                  if(quan <= db.checkCopies(st)){  
+                      if(listArray == 0){          
                       oid = db.getCurrentOID();;
-                      db.insertORDERS(oid,Odate,"N",0,cid);
-                  }
-                  if(quan <= db.checkCopies(st)){                                           
+                      db.insertORDERS(oid,Odate,"N",db.getCharge(oid),cid);
+                     }
                       db.insertORDERING(oid,st,quan);
                       db.updateBookCopies(st,(-1)*quan);
                       ISBN.add(st);
                       quantity.add(quan);
+                      db.updateOrderCharge(oid,db.getCharge(oid));
                       listArray ++;
                   } else{
                       System.out.println("Not enough copy avaliable");
                   }       break;
           }
+          
           
           
       }
