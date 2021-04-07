@@ -135,7 +135,6 @@ private static void OrderAlter(){
                 db.updateOrderCharge(oid, db.getCharge(oid));
                 System.out.println("updated charge");
                 db.updateOrdersDate(oid, Odate);
-                db.printOrder(oid);
                 db.printOrdering(oid);
             }
             else 
