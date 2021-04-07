@@ -793,12 +793,12 @@ public class Database {
                 ResultSet rs1 = stmt2.executeQuery();
                 rs1.next();
                 if (rs1.getString(1).equals("Y")){
-                    System.out.println("The Shipping status of " + orderid + "is Y and " + rsquan.getInt(1) + "books ordered.");
+                    System.out.println("The Shipping status of " + orderid + "is Y and " + rsquan.getInt(1) + " books ordered.");
                     System.out.println("End of Query");
                     return;
                 }
                 if (rs1.getString(1).equals("N")){
-                    System.out.println("The Shipping status of " + orderid + " is N and " + rsquan.getInt(1) + "books ordered.");
+                    System.out.println("The Shipping status of " + orderid + " is N and " + rsquan.getInt(1) + " books ordered.");
                     System.out.print("Are you sure to update the shipping status? (Yes=Y) ");
                     String x = input.nextLine();
                     if (x.equals("Y")){

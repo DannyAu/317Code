@@ -50,6 +50,7 @@ public class Sys {
         Scanner input = new Scanner(System.in);
 		while (true) {
             try{
+                System.out.println();
                 System.out.println("<This is the system interface.>");
                 System.out.println("-------------------------------");
                 System.out.println("1. Create Tables.");

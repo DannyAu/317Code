@@ -14,7 +14,8 @@ public class Project {
         //LocalDate date = LocalDate.of(2021, 4, 3);
         while (true) {
 
-            try {  
+            try {
+                System.out.println();  
                 System.out.println("<This is the Book Ordering System.>");
                 System.out.println("-------------------------------------");
                 System.out.println("1. System interface.");
@@ -27,17 +28,14 @@ public class Project {
                 int ans = Integer.parseInt(input.nextLine());
                 switch (ans) {
                     case 1:
-                        System.out.println(1);
                         Sys sys = new Sys();
                         sys.command();
                         break;
                     case 2:
-                        System.out.println(2);
                         Customer customer = new Customer();
                         customer.command();
                         break;
                     case 3:
-                        System.out.println(3);
                         Bookstore bs = new Bookstore();
                         bs.request();
                         break;

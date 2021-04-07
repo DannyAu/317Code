@@ -33,6 +33,7 @@ public class Bookstore{
 			Scanner input = new Scanner(System.in);
 			System.out.print("Please input the N popular books number: ");
 			int num = input.nextInt();
+			System.out.println("ISBN:           Title             copies");
 			db.nPopularBook(num);
 		} catch (Exception e){
 			System.out.println("Error: " + e);
@@ -43,6 +44,7 @@ public class Bookstore{
 		Scanner input = new Scanner(System.in);
 		while(true){
 			try{
+				System.out.println();
 				System.out.println("<This is the bookstore interface.>");
 				System.out.println("----------------------------------");
 				System.out.println("1. Order Update.");
