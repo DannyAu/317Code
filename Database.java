@@ -600,8 +600,10 @@ public class Database {
             prestmt.setString(1,oid);
             ResultSet rs = prestmt.executeQuery();
             while(rs.next()){
-                charge += rs.getInt(1)*rs.getInt(2);
+                charge += (rs.getInt(1)+10)*rs.getInt(2) ;
             }
+            if(charge!=0)
+                charge += 10;
             prestmt.close();
             con.close();
         }catch(SQLException ex){
