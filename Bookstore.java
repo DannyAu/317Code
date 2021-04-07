@@ -13,7 +13,7 @@ public class Bookstore{
 			String orderid = input.nextLine();
 			db.orderUpdate(orderid);
 		} catch (Exception e){
-			System.out.println("Error: " + e);
+			System.out.println("[Error]: " + e);
 		}
 	}
 
@@ -24,7 +24,7 @@ public class Bookstore{
 			String orderdate = input.nextLine();
 			db.orderQuery(orderdate);
 		} catch (Exception e){
-			System.out.println("Error: " + e);
+			System.out.println("[Error]: " + e);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class Bookstore{
 			System.out.println("ISBN:           Title             copies");
 			db.nPopularBook(num);
 		} catch (Exception e){
-			System.out.println("Error: " + e);
+			System.out.println("[Error]: " + e);
 		}
 	}
 

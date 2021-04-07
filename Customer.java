@@ -50,7 +50,7 @@ public class Customer {
       System.out.print("Please enter your customerID??");
       String cid = input.next();
       if(!db.checkCID(cid)){
-          System.out.println("This CID does not exist");
+          System.out.println("The customerID does not exist");
           return;
       }
       String oid = null;
@@ -99,9 +99,6 @@ public class Customer {
                       System.out.println("Not enough copy avaliable");
                   }       break;
           }
-          
-          
-          
       }
 }
 
@@ -208,7 +205,7 @@ private static void orderQuery(){
                         break;
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("[Error]: " + e);
             }
         }
     }
