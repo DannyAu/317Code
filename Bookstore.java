@@ -11,6 +11,10 @@ public class Bookstore{
 			Scanner input = new Scanner(System.in);
 			System.out.print("Please input the order ID: ");
 			String orderid = input.nextLine();
+			if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+            }
 			db.orderUpdate(orderid);
 		} catch (Exception e){
 			System.out.println("[Error]: " + e);
@@ -22,6 +26,10 @@ public class Bookstore{
 			Scanner input = new Scanner(System.in);
 			System.out.print("Please input the Month for Order Query (YYYY-MM): ");
 			String orderdate = input.nextLine();
+			if (!db.checkTables()){
+                System.out.println("Total charge of the month is 0");
+                return;
+            }
 			db.orderQuery(orderdate);
 		} catch (Exception e){
 			System.out.println("[Error]: " + e);
@@ -33,6 +41,10 @@ public class Bookstore{
 			Scanner input = new Scanner(System.in);
 			System.out.print("Please input the N popular books number: ");
 			int num = input.nextInt();
+			if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+            }
 			System.out.println("ISBN:           Title             copies");
 			db.nPopularBook(num);
 		} catch (Exception e){

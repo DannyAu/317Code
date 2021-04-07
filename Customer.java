@@ -22,16 +22,28 @@ public class Customer {
             case 1:
                 System.out.print("Input the ISBN: ");
                 String ISBN = inputISBN.next();
+                if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+                }
                 db.searchBookByISBN(ISBN);
                 break;
             case 2:
                 System.out.print("Input the book title: ");
                 String title = inputTitle.nextLine();
+                if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+                }
                 db.searchBookByTitle(title);
                 break;
             case 3:
                 System.out.print("Input the book author: ");
                 String author = inputAuthor.next();
+                if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+                }
                 db.searchBookByAuthor(author);
                 break;
             case 4:
@@ -49,6 +61,10 @@ public class Customer {
       String Odate = pro.date.toString();
       System.out.print("Please enter your customerID??");
       String cid = input.next();
+      if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+      }
       if(!db.checkCID(cid)){
           System.out.println("The customerID does not exist");
           return;
@@ -108,6 +124,10 @@ private static void OrderAlter(){
      String Odate = pro.date.toString();
     System.out.print("Please enter the OrderID that you want to change: ");
     String oid = input.next();
+    if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+    }
     if(!db.checkOID(oid)){
         System.out.println("OrderID does not exist");
         return;
@@ -168,6 +188,10 @@ private static void orderQuery(){
     String cid = input.next();
     System.out.print("Please Input the Year:");
     String year = input.next();
+    if (!db.checkTables()){
+                System.out.println("[Error]: There are no record!");
+                return;
+    }
     db.printYearOrder(cid, year);
 }
  public void command() {
