@@ -39,11 +39,12 @@ public class Database {
 
     public static int checkBOOK(){
         Statement stmt = null;
-        int res=-1;
+        int res = -1;
         try {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM BOOK;");
+            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -60,6 +61,7 @@ public class Database {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM CUSTOMER;");
+            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -76,6 +78,7 @@ public class Database {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM ORDERS;");
+            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -92,6 +95,7 @@ public class Database {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM ORDERING;");
+            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -108,6 +112,7 @@ public class Database {
             Connection con= connectSQL();
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) FROM AUTHOR;");
+            rs.next();
             res=rs.getInt(1);
             stmt.close();
             con.close();
@@ -235,7 +240,7 @@ public class Database {
     } 
 
     public static void loadTables(String path){
-        if (checkBOOK()==0){
+        if (!checkTables()){
            System.out.println("[Error]: Please create table first!");
            return;
         }
@@ -600,10 +605,8 @@ public class Database {
             prestmt.setString(1,oid);
             ResultSet rs = prestmt.executeQuery();
             while(rs.next()){
-                charge += (rs.getInt(1)+10)*rs.getInt(2) ;
+                charge += rs.getInt(1)*rs.getInt(2);
             }
-            if(charge!=0)
-                charge += 10;
             prestmt.close();
             con.close();
         }catch(SQLException ex){
@@ -797,10 +800,9 @@ public class Database {
                     System.out.print("Are you sure to update the shipping status? (Yes=Y) ");
                     String x = input.nextLine();
                     if (x.equals("Y")){
-                        PreparedStatement stmt3 = con.prepareStatement("UPDATE ORDERS SET STATUS = ? WHERE O_ID = ? ;");
-                        stmt3.setString(1, "Y");
-                        stmt3.setString(2, orderid);
-                        ResultSet rs2 = stmt3.executeQuery();
+                        PreparedStatement stmt3 = con.prepareStatement("UPDATE ORDERS SET STATUS = 'Y' WHERE O_ID = ? ;");
+                        stmt3.setString(1, orderid);
+                        stmt3.executeUpdate();
                         System.out.println("Updated shipping status");
                         return;
                     }
