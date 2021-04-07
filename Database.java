@@ -856,28 +856,31 @@ public class Database {
     public static void nPopularBook(int num){
         try{
             Connection con= connectSQL();
-            PreparedStatement stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ?;");
+            PreparedStatement stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN AND OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ?;");
             stmt.setInt(1, num);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 System.out.println(rs.getString(1) + "   " + rs.getString(2) + "   " + rs.getInt(3));
             }
-            stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT 1 OFFSET ?;");
-            stmt.setInt(1, num-1);
-            rs = stmt.executeQuery();
-            rs.next();
-            int x = rs.getInt(3);
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM BOOK B");
-            rs = stmt.executeQuery();
-            rs.next();
-            int y = rs.getInt(1);
-            stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ? OFFSET ?;");
-            stmt.setInt(1, y);
-            stmt.setInt(2, num);
-            ResultSet rs1 = stmt.executeQuery();
-            while(rs1.next()){
-                if(x == rs1.getInt(3)){
-                    System.out.println(rs1.getString(1) + "   " + rs1.getString(2) + "   " + rs1.getInt(3));
+            PreparedStatement stmt1 = con.prepareStatement("SELECT COUNT(*) FROM BOOK B");
+            ResultSet rs1 = stmt1.executeQuery();
+            rs1.next();
+            int y = rs1.getInt(1);
+            if( y > num ){
+                int n = num-1;
+                stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN WHERE OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT 1 OFFSET ?;");
+                stmt.setInt(1, n);
+                rs = stmt.executeQuery();
+                rs.next();
+                int x = rs.getInt(3);
+                PreparedStatement stmt2 = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN WHERE OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ? OFFSET ?;");
+                stmt2.setInt(1, y);
+                stmt2.setInt(2, num);
+                ResultSet rs2 = stmt2.executeQuery();
+                while(rs2.next()){
+                    if(x == rs2.getInt(3)){
+                        System.out.println(rs2.getString(1) + "   " + rs2.getString(2) + "   " + rs2.getInt(3));
+                    }
                 }
             }
         } catch (Exception e){
