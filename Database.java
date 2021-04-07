@@ -251,67 +251,46 @@ public class Database {
         }
 
 
-        //load BOOK
+        
         try {
             Connection con= connectSQL();
             String line = null;
+            //load BOOK
             BufferedReader reader = new BufferedReader(new FileReader(path + "/book.txt"));
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split("\\|");
                 insertBOOK(data[0],data[1],Integer.parseInt(data[2]),Integer.parseInt(data[3]));
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("[Error]: " + e);
-        }
-
-        //load CUSTOMER
-        try {
-            Connection con= connectSQL();
-            String line = null;
-            BufferedReader reader = new BufferedReader(new FileReader(path + "/customer.txt"));
+            
+             //load CUSTOMER
+            line = null;
+            reader = new BufferedReader(new FileReader(path + "/customer.txt"));
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split("\\|");
                 insertCUSTOMER(data[0],data[1],data[2],data[3]);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("[Error]: " + e);
-        }
 
-        //load ORDERS
-        try {
-            Connection con= connectSQL();
-            String line = null;
-            BufferedReader reader = new BufferedReader(new FileReader(path + "/orders.txt"));
+            //load ORDERS
+            line = null;
+            reader = new BufferedReader(new FileReader(path + "/orders.txt"));
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split("\\|");
                 insertORDERS(data[0],data[1],data[2],Integer.parseInt(data[3]),data[4]);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("[Error]: " + e);
-        }
 
-        //load ORDERING
-        try {
-            Connection con= connectSQL();
-            String line = null;
-            BufferedReader reader = new BufferedReader(new FileReader(path + "/ordering.txt"));
+            //load ORDERING
+            line = null;
+            reader = new BufferedReader(new FileReader(path + "/ordering.txt"));
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split("\\|");
                 insertORDERING(data[0],data[1],Integer.parseInt(data[2]));
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("[Error]: " + e);
-        }
 
-        //load AUTHOR
-        try {
-            Connection con= connectSQL();
-            String line = null;
-            BufferedReader reader = new BufferedReader(new FileReader(path + "/book_author.txt"));
+
+            //load AUTHOR
+
+            line = null;
+            reader = new BufferedReader(new FileReader(path + "/book_author.txt"));
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split("\\|");
                 insertAUTHOR(data[0],data[1]);
