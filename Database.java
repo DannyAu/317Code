@@ -123,6 +123,10 @@ public class Database {
     }
     
     public static void createTables(){
+        if (checkTables()){
+           System.out.println("[Error]: You have already created tables!");
+           return;
+        }
         Statement stmt = null;
         try {
             Connection con= connectSQL();
@@ -143,6 +147,10 @@ public class Database {
 
 
     public static void deleteTables(){
+        if (!checkTables()){
+           System.out.println("[Error]: Tables are already empty!");
+           return;
+        }
         Statement stmt = null;
         try {
             Connection con= connectSQL();
@@ -866,23 +874,7 @@ public class Database {
             System.out.println("[Error]: " + e);
         }
     }
-    
-    public static void main(String[] args){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Welcome");
-        try {
-            Connection con = connectSQL();
-            System.out.println("connecting");
-            deleteTables();
-            createTables();
-            System.out.println("Type in the Source Data Folder Path: ");
-            loadTables(input.nextLine());
-            con.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-    
+
 
 }
 
