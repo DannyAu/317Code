@@ -132,7 +132,7 @@ public class Database {
             Connection con= connectSQL();
             stmt = con.createStatement();
             System.out.print("Processing...");
-            stmt.execute("create table BOOK( ISBN varchar(13) primary key, TITLE varchar(30) not null, UNIT_PRICE integer not null, COPIES integer not null);");
+            stmt.execute("create table BOOK( ISBN varchar(13) primary key, TITLE varchar(100) not null, UNIT_PRICE integer not null, COPIES integer not null);");
             stmt.execute("create table CUSTOMER(CID varchar(10) not null primary key, CNAME varchar(50) not null, ADDRESS varchar(200) not null, CARD_NO varchar(19) not null);");
             stmt.execute("create table ORDERS(O_ID varchar(8) not null primary key, O_DATE date not null, STATUS varchar(1) not null, CHARGE integer not null, CID varchar(10) not null, foreign key(CID) references CUSTOMER(CID));");
             stmt.execute("create table ORDERING(O_ID varchar(8) not null, ISBN varchar(13) not null, quantity integer not null, primary key (O_ID, ISBN), foreign key(O_ID) references ORDERS(O_ID), foreign key(ISBN) references BOOK(ISBN));");
@@ -855,12 +855,12 @@ public class Database {
             int y = rs1.getInt(1);
             if( y > num ){
                 int n = num-1;
-                stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN WHERE OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT 1 OFFSET ?;");
+                stmt = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN AND OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT 1 OFFSET ?;");
                 stmt.setInt(1, n);
                 rs = stmt.executeQuery();
                 rs.next();
                 int x = rs.getInt(3);
-                PreparedStatement stmt2 = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN WHERE OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ? OFFSET ?;");
+                PreparedStatement stmt2 = con.prepareStatement("SELECT B.ISBN, B.TITLE, SUM(OI.quantity) AS sumquan FROM BOOK B, ORDERING OI WHERE B.ISBN = OI.ISBN AND OI.quantity > 0 GROUP BY B.ISBN ORDER BY sumquan DESC LIMIT ? OFFSET ?;");
                 stmt2.setInt(1, y);
                 stmt2.setInt(2, num);
                 ResultSet rs2 = stmt2.executeQuery();
@@ -877,6 +877,5 @@ public class Database {
 
 
 }
-
 
 
